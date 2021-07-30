@@ -4,4 +4,6 @@
 
 import setuptools
 
-setuptools.setup()
+setuptools.setup(
+    entry_points={"console_scripts": ["dsrelease = dsrelease.main:program.run"]}
+)
