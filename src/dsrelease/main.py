@@ -1,5 +1,8 @@
 import dsrelease
-from invoke import Program
+from dsrelease import tasks
+from invoke import Collection, Program
 
-program = Program(version=dsrelease.__version__)
+program = Program(
+    namespace=Collection.from_module(tasks), version=dsrelease.__version__
+)
 program.run()
