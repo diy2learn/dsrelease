@@ -8,4 +8,14 @@ def tag(ctx):
     Follows semantic versioning.
     """
     current_ver = ctx.run("git describe --tags --abbrev=0", hide=True, warn=True).stdout
+    return current_ver
+
+
+@task
+def update_tag(ctx):
+    current_ver = tag(ctx)
+    ver_major, ver_minor, ver_patch = current_ver.split(".")[:3]
+    ver_patch = int(ver_patch) + 1
+    update_ver = f"{ver_major}.{ver_minor}.{ver_patch}"
     print("current_ver: ", current_ver)
+    print("update_ver: ", update_ver)
