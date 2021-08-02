@@ -32,3 +32,17 @@ def release_start(ctx):
 def release_finish(ctx):
     current_ver = tag(ctx)
     ctx.run(f"git flow release finish {current_ver}")
+
+
+@task
+def release_push(ctx):
+    # Keep main branches on origin updated
+    print("[ACTION] Pushing to origin")
+    ctx.run("git checkout master", hide=True)
+    ctx.run("git push origin master", hide=True)
+    ctx.run("git checkout develop", hide=True)
+    ctx.run("git push origin develop", hide=True)
+    # Push tags
+    ctx.run("git push origin --tags", hide=True)
+    print("[RESULT] Completed push to origin")
+    ctx.run("git checkout develop")
