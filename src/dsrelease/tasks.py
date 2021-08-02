@@ -19,3 +19,10 @@ def update_tag(ctx):
     update_ver = f"{ver_major}.{ver_minor}.{ver_patch}"
     print("current_ver: ", current_ver)
     print("update_ver: ", update_ver)
+    return update_ver
+
+
+@task
+def release_start(ctx):
+    update_ver = update_tag(ctx)
+    ctx.run(f"git flow start {update_ver}")
