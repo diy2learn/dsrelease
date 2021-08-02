@@ -25,4 +25,10 @@ def update_tag(ctx):
 @task
 def release_start(ctx):
     update_ver = update_tag(ctx)
-    ctx.run(f"git flow start {update_ver}")
+    ctx.run(f"git flow release start {update_ver}")
+
+
+@task
+def release_finish(ctx):
+    current_ver = tag(ctx)
+    ctx.run(f"git flow release finish {current_ver}")
