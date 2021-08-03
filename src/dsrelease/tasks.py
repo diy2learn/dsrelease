@@ -46,3 +46,11 @@ def release_push(ctx):
     ctx.run("git push origin --tags", hide=True)
     print("[RESULT] Completed push to origin")
     ctx.run("git checkout develop")
+
+
+@task
+def upload_pypi(ctx):
+    print("[ACTION] Building sdist")
+    ctx.run("python setup.py sdist", hide=True)
+    print("[ACTION] Uploading to pypi")
+    ctx.run("twine upload dist/*", hide=True)
