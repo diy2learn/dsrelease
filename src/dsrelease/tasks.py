@@ -50,6 +50,9 @@ def release_push(ctx):
 
 @task
 def upload_pypi(ctx):
+    """
+    Build and Upload the package to Pypi server.
+    """
     print("[ACTION] Building sdist")
     ctx.run("python setup.py sdist", hide=True)
     print("[ACTION] Uploading to pypi")
