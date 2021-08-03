@@ -4,8 +4,7 @@ from invoke import task
 @task
 def tag(ctx):
     """
-    Tags a new git release, automates merging develop into master.
-    Follows semantic versioning.
+    Get latest git tag.
     """
     current_ver = ctx.run("git describe --tags --abbrev=0", hide=True, warn=True).stdout
     return current_ver
@@ -13,6 +12,9 @@ def tag(ctx):
 
 @task
 def update_tag(ctx):
+    """
+    Return new tag with increased patch-version.
+    """
     current_ver = tag(ctx)
     ver_major, ver_minor, ver_patch = current_ver.split(".")[:3]
     ver_patch = int(ver_patch) + 1
@@ -24,12 +26,19 @@ def update_tag(ctx):
 
 @task
 def release_start(ctx):
+    """
+    Start git flow release.
+
+    """
     update_ver = update_tag(ctx)
     ctx.run(f"git flow release start {update_ver}")
 
 
 @task
 def release_finish(ctx):
+    """
+    Finish git flow release.
+    """
     current_ver = tag(ctx)
     ctx.run(f"git flow release finish {current_ver}")
 
