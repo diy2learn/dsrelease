@@ -45,6 +45,9 @@ def release_finish(ctx):
 
 @task
 def release_push(ctx):
+    """
+    Push merged release and tag to the remote.
+    """
     # Keep main branches on origin updated
     print("[ACTION] Pushing to origin")
     ctx.run("git checkout master", hide=True)
